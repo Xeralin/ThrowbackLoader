@@ -1,0 +1,16 @@
+/build*/
+x64/
+.vs/
+*.obj
+*.pdb
+*.ilk
+*.exp
+*.idb
+*.log
+*.tlog
+*.user
+*.suo
+vcpkg_installed/
+output/
+ThrowbackLoader-*.zip
+Thumbs.db
