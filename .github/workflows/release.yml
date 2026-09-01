@@ -1,0 +1,24 @@
+name: Release zip
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install build deps
+        run: sudo apt-get update && sudo apt-get install -y g++-mingw-w64-x86-64 ninja-build zip
+      - uses: actions/checkout@v7
+      - name: Build release zip
+        run: bash build.sh
+      - name: Attach zip to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$TAG" "ThrowbackLoader-${TAG#v}.zip" --clobber
